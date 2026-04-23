@@ -1,0 +1,4 @@
+function assignDoor(truckType) {
+  if (truckType === "Flatbed" || truckType === "Box Truck") return "RAMP";
+  return "DOCK 14"; // Example – dynamic logic can come later
+}

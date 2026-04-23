@@ -1,0 +1,13 @@
+async function findLoad(shipmentNumber) {
+  const response = await fetch(
+    `https://isp.frc.com/search?ref=${shipmentNumber}`,
+    { headers: { "Authorization": "Bearer ISP_TOKEN" } }
+  );
+
+  const data = await response.json();
+
+  return {
+    pickupNumber: data.pickup,
+    dockType: data.trailerType === "FLATBED" ? "RAMP" : "DOCK"
+  };
+}

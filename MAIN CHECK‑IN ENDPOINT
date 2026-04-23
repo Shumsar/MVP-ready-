@@ -1,0 +1,15 @@
+app.post("/api/checkin", async (req, res) => {
+  const { shipmentNumber, truckType } = req.body;
+
+  const load = await findLoad(shipmentNumber);
+  const door = assignDoor(truckType);
+
+  await updateExcel(load.pickupNumber, door);
+  await notifyTeams(load.pickupNumber, door);
+
+  res.json({
+    message: `✅ Checked in.\nProceed to ${door}`
+  });
+});
+
+app.listen(3000);

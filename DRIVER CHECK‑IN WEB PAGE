@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Check In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style="font-family:Arial;padding:20px">
+  <h2>🚚 FANUC Driver Check‑In</h2>
+
+  <label>Pickup / Delivery / Sales Order #</label><br>
+  <input id="shipNum" style="width:100%;padding:10px"><br><br>
+
+  <label>Truck Type</label><br>
+  <select id="truckType" style="width:100%;padding:10px">
+    <option>Dry Van</option>
+    <option>Reefer</option>
+    <option>Flatbed</option>
+    <option>Box Truck</option>
+    <option>Other</option>
+  </select><br><br>
+
+  <button onclick="checkIn()" style="padding:15px;width:100%">
+    ✅ Check In
+  </button>
+
+  <p id="msg"></p>
+
+<script>
+async function checkIn() {
+  const res = await fetch("/api/checkin", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      shipmentNumber: shipNum.value,
+      truckType: truckType.value
+    })
+  });
+
+  const data = await res.json();
+  msg.innerText = data.message;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+async function notifyTeams(pickup, door) {
+  await fetch("https://outlook.office.com/webhook/YOUR_WEBHOOK_URL", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      text: `🚨 DRIVER CHECKED IN\n\nPickup #: ${pickup}\nAssigned: ${door}`
+    })
+  });
+}

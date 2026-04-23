@@ -1,0 +1,20 @@
+async function updateExcel(pickup, door) {
+  await fetch(
+    "https://graph.microsoft.com/v1.0/sites/{site-id}/drive/items/{file-id}/workbook/worksheets('Today')/tables('Checkin')/rows/add",
+    {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer GRAPH_TOKEN",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        values: [[
+          new Date().toLocaleTimeString(),
+          pickup,
+          door,
+          "Driver Checked In (QR)"
+        ]]
+      })
+    }
+  );
+}
